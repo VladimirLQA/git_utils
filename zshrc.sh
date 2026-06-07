@@ -63,6 +63,7 @@ t() {
 		;;
 	esac
 }
+# test remote
 
 gpsh() {
   local BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null) || return 1
