@@ -96,7 +96,7 @@ trim_str() {
 gcm() {
 
 	local COMMIT_TYPE SCOPE MESSAGE TRIMMED_MESSAGE FULL_MESSAGE
-	local -a COMMIT_TYPES=("test" "fix" "chore" "refactor" "docs" "style")
+	local -a COMMIT_TYPES=("feat" "test" "fix" "chore" "refactor" "docs" "style")
 
 	echo "Select commit type: "
 	select COMMIT_TYPE in "${COMMIT_TYPES[@]}"; do
@@ -152,8 +152,5 @@ gcm() {
 	  return 1
 	fi
 
-	# ==================== EXECUTE COMMIT ====================
-	echo "Committing with message:"
-	echo "   $FULL_MESSAGE"
 	git commit -m "$FULL_MESSAGE"
 }
