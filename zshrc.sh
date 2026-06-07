@@ -86,13 +86,10 @@ gpsh() {
 
 trim_str() {
     local var="$1"
-    
     # Trim leading whitespace
     var="${var##+([[:space:]])}"
-    
     # Trim trailing whitespace
     var="${var%%+([[:space:]])}"
-    
     printf '%s' "$var"
 }
 
