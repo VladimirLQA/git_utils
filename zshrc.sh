@@ -83,3 +83,80 @@ gpsh() {
  
   git push "${OPTS[@]}"
 }
+
+trim_str() {
+    local var="$1"
+    
+    # Trim leading whitespace
+    var="${var##+([[:space:]])}"
+    
+    # Trim trailing whitespace
+    var="${var%%+([[:space:]])}"
+    
+    printf '%s' "$var"
+}
+
+gcm() {
+
+	local COMMIT_TYPE SCOPE MESSAGE TRIMMED_MESSAGE FULL_MESSAGE
+	local -a COMMIT_TYPES=("test" "fix" "chore" "refactor" "docs" "style")
+
+	echo "Select commit type: "
+	select COMMIT_TYPE in "${COMMIT_TYPES[@]}"; do
+	  if [[ -n "$COMMIT_TYPE" ]]; then
+	    break
+          else
+	    echo "Invalid selection. Please try again."
+	  fi
+	done
+
+	local BRANCH_NAME=$(git branch --show-current 2>/dev/null)
+	local TICKET=""
+        [[ "$BRANCH_NAME" =~ / ]] && TICKET="${BRANCH_NAME#*/}"
+
+    	local -a SCOPES=("branch" "e2e" "testcases" "api" "omitted")
+   	echo "Select commit scope:"
+    	select SCOPE in "${SCOPES[@]}"; do
+	  case "$SCOPE" in
+	    "branch")    SCOPE="(${TICKET})" ;;
+	    "e2e")       SCOPE="(e2e)" ;;
+	    "testcases") SCOPE="(testcases)" ;;
+	    "api")       SCOPE="(api)" ;;
+	    "omitted")   SCOPE="" ;;
+	    *)           echo "Invalid scope selection."; continue ;;
+	  esac
+	  break
+	done
+
+	# ==================== COMMIT MESSAGE ====================
+	echo "Enter commit message (minimum 5 characters):"
+	read -r MESSAGE
+
+	TRIMMED_MESSAGE=$(trim_str "$MESSAGE")
+	if [[ -z "$TRIMMED_MESSAGE" || ${#TRIMMED_MESSAGE} -lt 5 ]]; then
+	  echo "Error: Commit message must be at least 5 characters long and non-empty."
+	  return 1
+	fi
+
+	# Build conventional commit message
+	    if [[ -n "$SCOPE" ]]; then
+		FULL_MESSAGE="${COMMIT_TYPE}${SCOPE}: ${TRIMMED_MESSAGE}"
+	    else
+		FULL_MESSAGE="${COMMIT_TYPE}: ${TRIMMED_MESSAGE}"
+	    fi
+
+	# ==================== VALIDATION ====================
+	local REGEX='^(revert: )?((feat|fix|docs|style|refactor|perf|test|chore)(\([^)]+\))?: .{5,})'
+	    
+	if ! [[ "$FULL_MESSAGE" =~ $REGEX ]]; then
+	  echo "Error: Commit message does not follow Conventional Commits format."
+	  echo "Expected format: type[(scope)]: message"
+	  echo "Your message : $FULL_MESSAGE"
+	  return 1
+	fi
+
+	# ==================== EXECUTE COMMIT ====================
+	echo "Committing with message:"
+	echo "   $FULL_MESSAGE"
+	git commit -m "$FULL_MESSAGE"
+}
