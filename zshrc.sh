@@ -67,7 +67,9 @@ t() {
 gpsh() {
   local BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null) || return 1
   [[ -z "$BRANCH" ]] && { echo "Not on any branch"; return 1; }
-  [[ "$BRANCH" = "master" ]] && { echo "Push to master is FORBIDDEN. Create a branch, BIRDBRAIN!"; return 1; }
+
+  local branch_name_pattern="(master|main)"
+  [[ "$BRANCH" =~ $branch_name_pattern ]] && { echo "Push to master/main is FORBIDDEN. Create a branch, BIRDBRAIN!"; return 1; }
 
   local -a OPTS=(origin "$BRANCH")
 
