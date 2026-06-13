@@ -1,3 +1,0 @@
-- add colorized output
-- add custom scope option for user input
-- add `q` support to quit on any step
