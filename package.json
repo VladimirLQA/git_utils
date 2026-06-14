@@ -1,5 +1,5 @@
 {
-  "name": "git-interactive",
+  "name": "git-interactive-vlaqa",
   "version": "1.0.0",
   "description": "Interactive Git CLI",
   "main": "dist/index.js",
