@@ -9,7 +9,7 @@ A collection of interactive CLI commands for common Git workflows, built on [Con
 ## Installation
 
 ```bash
-npm install -g git-interactive
+npm install -g git-interactive-vlaqa
 ```
 
 ---

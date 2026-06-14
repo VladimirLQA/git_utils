@@ -40,5 +40,5 @@
     "moduleDetection": "force",
     "skipLibCheck": true,
   },
-  "include": ["src/**/*", "eslint.config.ts"],
+  "include": ["src/**/*"]
 }
