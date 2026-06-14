@@ -22,7 +22,8 @@ class Commit {
         if (scopeAnswer === 'branch') {
             const branch = this.gitBase.ok(workdir, ['branch', '--show-current']);
             if (!branch.ok) throw new GitError(`Could not get branch name: ${branch.out}`);
-            scope = wrap(branch.out);
+            const ticket = branch.out.includes('/') ? branch.out.split('/')[1] : branch.out;
+            scope = wrap(ticket);
         } else if (scopeAnswer === 'custom') {
             scope = wrap(await input({ message: 'Provide custom scope:' }));
         }
