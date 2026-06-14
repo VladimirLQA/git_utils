@@ -6,7 +6,7 @@ class Commit {
     constructor(private gitBase = git) {}
 
     private async promptMessage(workdir: string): Promise<string> {
-        const wrap = (s: string) => s ? `(${s})` : '';
+        const wrapScope = (s: string) => s ? `(${s})` : '';
 
         const type = await rawlist({
             message: 'Select commit type:',
@@ -22,10 +22,10 @@ class Commit {
         if (scopeAnswer === 'branch') {
             const branch = this.gitBase.ok(workdir, ['branch', '--show-current']);
             if (!branch.ok) throw new GitError(`Could not get branch name: ${branch.out}`);
-            const ticket = branch.out.includes('/') ? branch.out.split('/')[1] : branch.out;
-            scope = wrap(ticket);
+            const ticket = branch.out.includes('/') ? branch.out.split('/')[1]! : branch.out;
+            scope = wrapScope(ticket);
         } else if (scopeAnswer === 'custom') {
-            scope = wrap(await input({ message: 'Provide custom scope:' }));
+            scope = wrapScope(await input({ message: 'Provide custom scope:' }));
         }
 
         const description = await input({
