@@ -13,8 +13,8 @@
     "bin"
   ],
   "bin": {
-    "gicm": "./bin/gicm",
-    "gia": "./bin/gia"
+    "gicm": "bin/gicm",
+    "gia": "bin/gia"
   },
   "repository": {
     "type": "git",
