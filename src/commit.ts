@@ -15,7 +15,7 @@ class Commit {
 
         const scopeAnswer = await rawlist({
             message: 'Select commit scope:',
-            choices: ['branch', 'e2e', 'api', 'testcases', 'omit', 'custom'],
+            choices: ['branch', 'e2e', 'testcases', 'api',  'omit', 'custom'],
         });
 
         let scope = '';
