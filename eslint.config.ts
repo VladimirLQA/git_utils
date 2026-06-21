@@ -7,11 +7,12 @@ import { defineConfig } from 'eslint/config';
 import stylistic from '@stylistic/eslint-plugin';
 
 export default defineConfig([
+    { ignores: ['__mocks__/**'] },
     {
         files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
         plugins: { js, '@stylistic': stylistic, '@stylistic/js': stylistic },
         extends: ['js/recommended'],
-        languageOptions: { globals: globals.browser },
+        languageOptions: { globals: { ...globals.browser, ...globals.node } },
         rules: {
 
             // stylistic
@@ -90,7 +91,7 @@ export default defineConfig([
         files: ['**/*.{ts,mts,cts}'],
         languageOptions: {
             parserOptions: {
-                project: true,
+                project: ['./tsconfig.json'],
                 tsconfigRootDir: __dirname,
             },
         },
