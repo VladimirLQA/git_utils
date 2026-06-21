@@ -73,6 +73,7 @@ function expandSelection(selected: string[], dirs: DirectoryMap): string[] {
             result.push(value);
         }
     }
+
     return [...new Set(result)];
 }
 

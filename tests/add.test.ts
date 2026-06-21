@@ -118,7 +118,7 @@ describe('git add', () => {
 
         await add.run(repoDir);
 
-        const callArg = mockedCheckbox.mock.calls[0][0];
+        const callArg = mockedCheckbox.mock.calls[0]![0]!;
         const choices = callArg.choices;
         const names = choices.filter((c) => 'name' in c).map((c) => c.name);
         const values = choices.filter((c) => 'value' in c).map((c) => c.value);
