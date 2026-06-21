@@ -15,7 +15,7 @@ class Commit {
 
         const scopeAnswer = await rawlist({
             message: 'Select commit scope:',
-            choices: ['branch', 'e2e', 'api', 'omit', 'custom'],
+            choices: ['branch', 'e2e', 'api', 'testcases', 'omit', 'custom'],
         });
 
         let scope = '';
@@ -26,6 +26,8 @@ class Commit {
             scope = wrapScope(ticket);
         } else if (scopeAnswer === 'custom') {
             scope = wrapScope(await input({ message: 'Provide custom scope:' }));
+        } else if (scopeAnswer !== 'omit') {
+            scope = wrapScope(scopeAnswer);
         }
 
         const description = await input({
