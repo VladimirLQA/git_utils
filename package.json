@@ -1,12 +1,12 @@
 {
   "name": "git-interactive-vlaqa",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Interactive Git CLI",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc -p tsconfig.build.json",
     "prepublishOnly": "npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "files": [
     "dist",
@@ -32,10 +32,13 @@
     "@eslint/json": "^2.0.0",
     "@eslint/markdown": "^8.0.2",
     "@stylistic/eslint-plugin": "^5.10.0",
-    "@types/node": "^25.9.3",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^25.9.4",
     "eslint": "^10.5.0",
     "globals": "^17.6.0",
+    "jest": "^30.4.2",
     "jiti": "^2.7.0",
+    "ts-jest": "^29.4.11",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.61.0"
   },

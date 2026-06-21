@@ -2,7 +2,7 @@ import { execFileSync } from 'child_process';
 
 class Git {
     private call(workdir: string, args: string[]): string {
-        return execFileSync('git', args, { cwd: workdir, encoding: 'utf8', stdio: 'pipe' }).trim();
+        return execFileSync('git', args, { cwd: workdir, encoding: 'utf8', stdio: 'pipe' }).replace(/\r?\n$/, '');
     }
 
     public ok(workdir: string, args: string[]): { ok: boolean; out: string } {
