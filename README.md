@@ -79,3 +79,45 @@ After a successful commit, the short hash and subject are printed:
 | Not inside a Git repository | `Make sure you are calling commands from GIT project!` |
 | No staged files | `No staged files. Stage your changes with \`git add\` first.` |
 | Prompt cancelled (`Ctrl+C`) | `👋 until next time!` |
+
+---
+
+### `gia` — Interactive Add
+
+Interactively stage files using a checkbox UI. Shows all changed files grouped by directory, with their current Git status.
+
+```bash
+gia
+```
+
+#### Interactive Prompts
+
+A checkbox list is presented with all modified, untracked, and partially staged files. Files inside subdirectories are grouped under their parent directory.
+
+| Entry type | Example display |
+|------------|-----------------|
+| Root-level file | `M  src/index.ts` |
+| Directory group | `src/` |
+| File inside directory | `    M  src/add.ts` |
+
+- Already-staged files are pre-checked.
+- Selecting a directory entry (`src/`) stages all files inside it.
+- Space to toggle, Enter to confirm.
+
+#### Output
+
+```
+✔ Staged 3 file(s):
+  src/add.ts
+  src/index.ts
+  tests/add.test.ts
+```
+
+#### Error handling
+
+| Condition | Message |
+|-----------|---------|
+| Not inside a Git repository | `Make sure you are calling commands from GIT project!` |
+| Working tree is clean | `No changes to stage. Working tree is clean.` |
+| No files selected | `No files selected. Nothing staged.` |
+| Prompt cancelled (`Ctrl+C`) | `👋 until next time!` |
